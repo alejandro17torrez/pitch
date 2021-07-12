@@ -1,0 +1,23 @@
+name: Build & Deploy
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+     - name: Setup Node.js environment
+       uses: actions/setup-node@v2.2.0
+       with:
+          host: ${{secrets.SSH_HOST}}
+          key: ${{secrets.SSH_KEY}}
+          username: ${{secrets.SSH_USERNAME}}
+          script: | 
+            mkdir test
+            cd test
+            git clone git@github.com:alejandro17torrez/pitch.git
+            echo "Despliegue exitoso!!"
